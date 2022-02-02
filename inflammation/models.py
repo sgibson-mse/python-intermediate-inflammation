@@ -6,6 +6,7 @@ Patients' data is held in an inflammation table (2D array) where each row contai
 inflammation data for a single patient taken over a number of days 
 and each column represents a single day across all patients.
 """
+from functools import reduce
 
 import numpy as np
 
@@ -53,9 +54,11 @@ class Doctor(Person):
 
 
 class Patient(Person):
-    def __init__(self, name, observations=[]):
+    def __init__(self, name, observations=None):
         """A Patient in an inflammation study"""
         super().__init__(name)
+        if observations is None:
+            observations = []
         self.name = name
         self.observations = observations
 
@@ -84,18 +87,6 @@ class Patient(Person):
         self.observations.append(new_observation)
 
         return new_observation
-
-
-alice = Patient('Alice')
-
-obs = alice.add_observation(3)
-
-bob = Patient('Bob')
-
-obs = bob.add_observation(4)
-print(obs)
-
-sam = Doctor('Sam')
 
 
 def load_csv(filename):
@@ -159,7 +150,19 @@ def attach_names(patient_names, patient_data):
     return patients
 
 
+def sum_of_squares(sequence):
+    squares = [a * a for a in sequence]
+    return reduce(lambda b, c: b + c, squares)
 
-# TODO(lesson-design) Add Patient class
-# TODO(lesson-design) Implement data persistence
-# TODO(lesson-design) Add Doctor class
+
+
+# alice = Patient('Alice')
+#
+# obs = alice.add_observation(3)
+#
+# bob = Patient('Bob')
+#
+# obs = bob.add_observation(4)
+# print(obs)
+#
+# sam = Doctor('Sam')

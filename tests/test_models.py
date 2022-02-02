@@ -1,5 +1,6 @@
 """Tests for statistics functions within the Model layer."""
 
+
 import numpy as np
 import numpy.testing as npt
 import pytest
@@ -58,3 +59,20 @@ def test_patient_normalise(test, expected):
        Assumption that test accuracy of two decimal places is sufficient."""
     from inflammation.models import patient_normalise
     npt.assert_almost_equal(patient_normalise(np.array(test)), np.array(expected), decimal=2)
+
+
+def test_random_numpy():
+    """Test the numpy function random.normal """
+    import numpy as np
+    mean = 5
+    sdev = 3
+    sample_size = 1000000
+
+    sample = np.random.normal(mean, sdev, sample_size)
+
+    np.testing.assert_almost_equal(mean, np.mean(sample), decimal=2)
+    np.testing.assert_almost_equal(sdev, np.std(sample), decimal=2)
+
+
+
+
