@@ -1,4 +1,5 @@
 from inflammation import models, serializers
+from inflammation.serializers import PatientJSONSerializer
 
 
 def test_patients_json_serializer():
@@ -11,7 +12,7 @@ def test_patients_json_serializer():
     # Save and reload the data
     output_file = 'patients.json'
     serializers.PatientJSONSerializer.save(patients, output_file)
-    patients_new = serializers.PatientJSONSerializer.load(output_file)
+    patients_new = PatientJSONSerializer.load(output_file)
 
     # Check that we've got the same data back
     for patient_new, patient in zip(patients_new, patients):
